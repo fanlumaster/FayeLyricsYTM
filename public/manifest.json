@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "FayeLyricsYTM",
+  "version": "1.0.0",
+  "icons": {
+    "32": "icon32.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "<all_urls>"
+  ]
+}
