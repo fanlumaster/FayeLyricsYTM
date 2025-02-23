@@ -13,11 +13,24 @@
   },
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "host_permissions": [
     "http://*/*",
     "https://*/*",
     "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://music.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [],
+      "run_at": "document_end"
+    }
   ]
 }
