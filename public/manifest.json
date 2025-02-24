@@ -21,6 +21,16 @@
     "https://*/*",
     "<all_urls>"
   ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "*://music.youtube.com/*"
+      ],
+      "resources": [
+        "script.js"
+      ]
+    }
+  ],
   "content_scripts": [
     {
       "matches": [

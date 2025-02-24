@@ -1,0 +1,10 @@
+{
+  "Print to console": {
+    "scope": "javascript,typescript",
+    "prefix": "clog",
+    "body": [
+      "console.log($1);"
+    ],
+    "description": "Log output to console"
+  }
+}
