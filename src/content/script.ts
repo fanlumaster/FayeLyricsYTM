@@ -1,3 +1,8 @@
+import { FayeLyricsConstants } from "./constants.ts";
+import { LyricsPlayerEventDetail } from "./data-types.ts";
+
+const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
+
 (function () {
   let tickLyricsInterval: any;
   const startLyricsTick = () => {
@@ -14,7 +19,7 @@
           const duration = player.getDuration();
           const { isPlaying } = player.getPlayerStateObject();
           document.dispatchEvent(
-            new CustomEvent("blyrics-send-player-time", {
+            new CustomEvent<LyricsPlayerEventDetail>(FAYE_LYRICS_SEND_PLAYER_MSG, {
               detail: {
                 currentTime: currentTime,
                 videoId: video_id,
