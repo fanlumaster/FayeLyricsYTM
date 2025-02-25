@@ -1,18 +1,22 @@
-console.log("what");
+import { LyricsUtils } from "./utils.ts";
 
 function injectGetSongInfo() {
   let s = document.createElement("script");
-  s.id = "blyrics-script";
   s.src = chrome.runtime.getURL("script.js");
   s.id = "blyrics-script";
   (document.head || document.documentElement).appendChild(s);
 }
 
+function main() {
+  injectGetSongInfo();
+  LyricsUtils.enableLyricsTab();
+}
+
 if (document.readyState !== "loading") {
   console.log("yes, loaded!");
-  injectGetSongInfo();
+  main();
 } else {
-  document.addEventListener("DOMContentLoaded", injectGetSongInfo);
+  document.addEventListener("DOMContentLoaded", main);
 }
 
 document.addEventListener("blyrics-send-player-time", (event) => {
