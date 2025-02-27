@@ -9,20 +9,12 @@ function injectGetSongInfo() {
   (document.head || document.documentElement).appendChild(s);
 }
 
-// function injectCSS() {
-//   const style = document.createElement('style');
-//   style.textContent = ``;
-//   document.head.appendChild(style);
-// }
-
-
 function main() {
   injectGetSongInfo();
   LyricsUtils.enableLyricsTab();
-  FayeLyrics.initializeLyrics();
   FayeLyrics.removeExsitingLyrics();
   FayeLyrics.inflateLyrics();
-  // injectCSS();
+  FayeLyrics.tickLyrics();
 }
 
 if (document.readyState !== "loading") {

@@ -25,6 +25,21 @@
   display: none;
 }
 
+#fayelyrics-container {
+  font-size: 3rem;
+}
+
 #fayelyrics-content {
-  font-size: 22px;
+  font-size: 3rem;
+  padding-left: 3rem;
+}
+
+#fayelyrics-content>div {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#fayelyrics-content>div.fayelyrics-active {
+  font-size: 3.5rem;
+  color: aqua;
 }

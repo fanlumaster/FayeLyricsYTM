@@ -37,7 +37,7 @@ const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
           stopLyricsTick();
         }
       }
-    }, 2000);
+    }, 50);
   };
 
   const stopLyricsTick = () => {
