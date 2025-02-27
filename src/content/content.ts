@@ -12,7 +12,10 @@ function injectGetSongInfo() {
 function injectCSS() {
   const style = document.createElement('style');
   style.textContent = `
-#tab-renderer > tp-yt-paper-spinner-lite {
+#tab-renderer:not([page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]) #fayelyrics-container {
+  display: none !important;
+}
+#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] tp-yt-paper-spinner-lite {
   display: none !important;
 }
 #contents > ytmusic-description-shelf-renderer {
