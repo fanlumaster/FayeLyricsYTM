@@ -2,6 +2,15 @@
 
 Yet another Better Lyrics extension for Youtube Music Website.(Maybe)
 
+## How to build
+
+Run the powershell script,
+
+```powershell
+.\scripts\llaunch.ps1
+```
+
+Then, load unpacked from generated directory: dist in Chrome. That's all. Enjoy it.
 
 Thanks to:
 
