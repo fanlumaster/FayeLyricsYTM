@@ -12,6 +12,16 @@ function injectGetSongInfo() {
 function injectCSS() {
   const style = document.createElement('style');
   style.textContent = `
+#tab-renderer > tp-yt-paper-spinner-lite {
+  display: none !important;
+}
+#contents > ytmusic-description-shelf-renderer {
+  display: none !important;
+}
+#tab-renderer > ytmusic-message-renderer > yt-formatted-string.subtext.style-scope.ytmusic-message-renderer,
+#tab-renderer > ytmusic-message-renderer > yt-formatted-string.text.style-scope.ytmusic-message-renderer {
+  display: none !important;
+}
 /* Hide scrollbar */
 #tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] {
   overflow-y: auto;
@@ -20,7 +30,7 @@ function injectCSS() {
 #tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]::-webkit-scrollbar {
   display: none;
 }
-#contents > ytmusic-description-shelf-renderer > p {
+#fayelyrics-content {
   font-size: 22px;
 }
     `;
@@ -32,6 +42,8 @@ function main() {
   injectGetSongInfo();
   LyricsUtils.enableLyricsTab();
   FayeLyrics.initializeLyrics();
+  FayeLyrics.removeExsitingLyrics();
+  FayeLyrics.inflateLyrics();
   injectCSS();
 }
 

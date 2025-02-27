@@ -4,16 +4,48 @@ import { LyricsPlayerEventDetail } from "./data-types.ts";
 const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
 
 export class FayeLyrics {
-  static initializeLyrics() {
-    document.addEventListener(FAYE_LYRICS_SEND_PLAYER_MSG, ((event: CustomEvent<LyricsPlayerEventDetail>) => {
-      let detail = event.detail;
-      let currentVideoId = detail.videoId;
-      let currentVideoDetails = detail.song + " " + detail.artist;
-      console.log("currentVideoId: " + currentVideoId);
-      console.log("currentVideoDetails: " + currentVideoDetails);
-      let lyricsContent = document.querySelector("#contents > ytmusic-description-shelf-renderer");
-      if (lyricsContent) {
-        lyricsContent!.innerHTML = `<p>[00:15.49] 常請晚星請背影 不用替我太掛心</p>
+  static removeExsitingLyrics() {
+    // Remove msg when there is no lyrics provided by YTM
+    const noneLyricsMsg = document.querySelector("#tab-renderer > ytmusic-message-renderer > yt-formatted-string.text.style-scope.ytmusic-message-renderer")?.parentElement;
+    if (noneLyricsMsg) {
+      noneLyricsMsg.style.display = "";
+    }
+    // Remove default lyrics provided by YTM
+    const existingLyrics = document.getElementsByClassName("description style-scope ytmusic-description-shelf-renderer");
+    if (existingLyrics.length > 0) {
+      for (let each of existingLyrics) {
+        (each as HTMLElement).style.display = "";
+      }
+    }
+    // Romove default footer
+    const existingFooter = document.getElementsByClassName("footer style-scope ytmusic-description-shelf-renderer");
+    if (existingFooter.length > 0) {
+      for (let each of existingFooter) {
+        (each as HTMLElement).style.display = "";
+      }
+    }
+  }
+
+  static createLyricContainer() {
+    const tabRenderer = document.querySelector("#tab-renderer");
+    const existingContainer = document.getElementById("fayelyrics-container");
+    if (existingContainer) {
+      existingContainer.innerHTML = "";
+      existingContainer.style.top = "";
+      existingContainer.style.transition = "";
+      return existingContainer;
+    }
+    const container = document.createElement("div");
+    container.id = "fayelyrics-container";
+    tabRenderer?.appendChild(container);
+    return container;
+  }
+
+  static inflateLyrics() {
+    const container = this.createLyricContainer();
+    const lyricContent = document.createElement("div");
+    lyricContent.id = "fayelyrics-content";
+    let hardCodeLyrics = `<p>[00:15.49] 常請晚星請背影 不用替我太掛心</p>
 <p>[00:23.32] 常勸心境應恬靜 別無事也帶淚痕</p>
 <p>[00:31.18] 如近來共你相擁之時 常常略察覺你稍帶冷感</p>
 <p>[00:39.05] 全因你身邊許多要事 暫時沒法興奮</p>
@@ -39,81 +71,17 @@ export class FayeLyrics {
 <p>[03:34.71] 你會走</p>
 <p>[04:11.65] 尚當我擁有</p>
 <p>[04:20.56]</p>`;
-      }
+    lyricContent.innerHTML = hardCodeLyrics;
+    container.appendChild(lyricContent);
+  }
+
+  static initializeLyrics() {
+    document.addEventListener(FAYE_LYRICS_SEND_PLAYER_MSG, ((event: CustomEvent<LyricsPlayerEventDetail>) => {
+      let detail = event.detail;
+      let currentVideoId = detail.videoId;
+      let currentVideoDetails = detail.song + " " + detail.artist;
+      console.log("currentVideoId: " + currentVideoId);
+      console.log("currentVideoDetails: " + currentVideoDetails);
     }) as EventListener);
   }
 }
-
-//     let currentVideoId = detail.videoId;
-//     let currentVideoDetails = detail.song + " " + detail.artist;
-
-//     if (
-//       currentVideoId !== BetterLyrics.App.lastVideoId ||
-//       currentVideoDetails !== BetterLyrics.App.lastVideoDetails
-//     ) {
-//       try {
-//         if (currentVideoId === BetterLyrics.App.lastVideoId && BetterLyrics.App.areLyricsLoaded) {
-//           console.log(BetterLyrics.Constants.SKIPPING_LOAD_WITH_META);
-//           return; // We already loaded this video
-//         }
-//       } finally {
-//         BetterLyrics.App.lastVideoId = currentVideoId;
-//         BetterLyrics.App.lastVideoDetails = currentVideoDetails;
-//       }
-
-//       if (!detail.song || !detail.artist) {
-//         console.log(BetterLyrics.Constants.LOADING_WITHOUT_SONG_META);
-//       }
-
-//       BetterLyrics.Utils.log(BetterLyrics.Constants.SONG_SWITCHED_LOG, detail.videoId);
-//       BetterLyrics.App.areLyricsTicking = false;
-//       BetterLyrics.App.areLyricsLoaded = false;
-
-//       BetterLyrics.App.queueLyricInjection = true;
-//       BetterLyrics.App.queueAlbumArtInjection = true;
-//       BetterLyrics.App.queueSongDetailsInjection = true;
-//     }
-
-//     if (
-//       BetterLyrics.App.queueSongDetailsInjection &&
-//       detail.song &&
-//       detail.artist &&
-//       document.getElementById("main-panel")
-//     ) {
-//       BetterLyrics.App.queueSongDetailsInjection = false;
-//       BetterLyrics.DOM.injectSongAttributes(detail.song, detail.artist);
-//     }
-
-//     if (BetterLyrics.App.queueAlbumArtInjection === true && BetterLyrics.App.shouldInjectAlbumArt === true) {
-//       BetterLyrics.App.queueAlbumArtInjection = false;
-//       BetterLyrics.DOM.addAlbumArtToLayout();
-//     }
-
-//     if (BetterLyrics.App.lyricInjectionFailed) {
-//       const tabSelector = document.getElementsByClassName(BetterLyrics.Constants.TAB_HEADER_CLASS)[1];
-//       if (tabSelector && tabSelector.getAttribute("aria-selected") !== "true") {
-//         BetterLyrics.App.lyricInjectionFailed = false; //ignore failure b/c the tab isn't visible
-//       }
-//     }
-
-//     if (BetterLyrics.App.queueLyricInjection || BetterLyrics.App.lyricInjectionFailed) {
-//       const tabSelector = document.getElementsByClassName(BetterLyrics.Constants.TAB_HEADER_CLASS)[1];
-//       if (tabSelector) {
-//         BetterLyrics.App.queueLyricInjection = false;
-//         BetterLyrics.App.lyricInjectionFailed = false;
-//         if (tabSelector.getAttribute("aria-selected") !== "true") {
-//           BetterLyrics.Settings.onAutoSwitchEnabled(() => {
-//             tabSelector.click();
-//             BetterLyrics.Utils.log(BetterLyrics.Constants.AUTO_SWITCH_ENABLED_LOG);
-//           });
-//         }
-//         BetterLyrics.App.handleModifications(detail);
-//       }
-//     }
-//     let timeOffset = Date.now() - detail.browserTime;
-//     if (!detail.playing) {
-//       timeOffset = 0;
-//     }
-//     BetterLyrics.DOM.tickLyrics(detail.currentTime + timeOffset / 1000);
-//   });
-// },
