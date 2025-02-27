@@ -9,36 +9,11 @@ function injectGetSongInfo() {
   (document.head || document.documentElement).appendChild(s);
 }
 
-function injectCSS() {
-  const style = document.createElement('style');
-  style.textContent = `
-#tab-renderer:not([page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]) #fayelyrics-container {
-  display: none !important;
-}
-#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] tp-yt-paper-spinner-lite {
-  display: none !important;
-}
-#contents > ytmusic-description-shelf-renderer {
-  display: none !important;
-}
-#tab-renderer > ytmusic-message-renderer > yt-formatted-string.subtext.style-scope.ytmusic-message-renderer,
-#tab-renderer > ytmusic-message-renderer > yt-formatted-string.text.style-scope.ytmusic-message-renderer {
-  display: none !important;
-}
-/* Hide scrollbar */
-#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] {
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]::-webkit-scrollbar {
-  display: none;
-}
-#fayelyrics-content {
-  font-size: 22px;
-}
-    `;
-  document.head.appendChild(style);
-}
+// function injectCSS() {
+//   const style = document.createElement('style');
+//   style.textContent = ``;
+//   document.head.appendChild(style);
+// }
 
 
 function main() {
@@ -47,7 +22,7 @@ function main() {
   FayeLyrics.initializeLyrics();
   FayeLyrics.removeExsitingLyrics();
   FayeLyrics.inflateLyrics();
-  injectCSS();
+  // injectCSS();
 }
 
 if (document.readyState !== "loading") {
