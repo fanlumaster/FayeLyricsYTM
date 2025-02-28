@@ -3,7 +3,7 @@ import { LyricsPlayerEventDetail } from "./data-types.ts";
 import { FayeLyrics } from "./lyrics.ts";
 
 function injectGetSongInfo() {
-  let s = document.createElement("script");
+  const s = document.createElement("script");
   s.src = chrome.runtime.getURL("script.js");
   s.id = "blyrics-script";
   (document.head || document.documentElement).appendChild(s);
@@ -24,7 +24,9 @@ if (document.readyState !== "loading") {
   document.addEventListener("DOMContentLoaded", main);
 }
 
-document.addEventListener("faye-lyrics-send-player-msg", ((event: CustomEvent<LyricsPlayerEventDetail>) => {
+document.addEventListener("faye-lyrics-send-player-msg", ((
+  event: CustomEvent<LyricsPlayerEventDetail>
+) => {
   const customEvent = event as CustomEvent<any>;
   const data: any = customEvent.detail;
   console.log("Current time:", data.currentTime);
