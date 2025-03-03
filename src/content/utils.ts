@@ -30,3 +30,25 @@ export class LyricsUtils {
     observer.observe(tabSelector, { attributes: true });
   }
 }
+
+export class CommonUtils {
+  static scrollDivToCenter(targetDiv: HTMLDivElement, parent: HTMLDivElement) {
+    if (!targetDiv || !parent) return;
+
+    const divRect = targetDiv.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+
+    const parentHeight = parentRect.height;
+    const divHeight = divRect.height;
+
+    const scrollTarget =
+      targetDiv.offsetTop -
+      (parentHeight / 2) +
+      (divHeight / 2);
+
+    parent.scrollTo({
+      top: scrollTarget,
+      behavior: 'smooth'
+    });
+  }
+}

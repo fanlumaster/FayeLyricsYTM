@@ -1,6 +1,7 @@
 import { FayeLyricsConstants } from "./constants.ts";
 import { LyricsPlayerEventDetail } from "./data-types.ts";
 import { hardcodeLyrics } from "./mockdata.ts";
+import { CommonUtils } from "./utils.ts";
 
 const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
 
@@ -114,18 +115,16 @@ export class FayeLyrics {
     }
     if (activeLine) {
       activeLine.classList.add('fayelyrics-active');
+      let tabRenderer = document.getElementById("tab-renderer");
+      CommonUtils.scrollDivToCenter(activeLine as HTMLDivElement, tabRenderer as HTMLDivElement);
     }
   }
 
   static tickLyrics() {
     document.addEventListener(FAYE_LYRICS_SEND_PLAYER_MSG, ((event: CustomEvent<LyricsPlayerEventDetail>) => {
       let detail = event.detail;
-      let currentVideoId = detail.videoId;
-      let currentVideoDetails = detail.song + " " + detail.artist;
       const currentTime = detail.currentTime;
       this.updateLyricsState(currentTime);
-      console.log("currentVideoId: " + currentVideoId);
-      console.log("currentVideoDetails: " + currentVideoDetails);
     }) as EventListener);
   }
 }
