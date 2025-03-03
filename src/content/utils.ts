@@ -6,7 +6,9 @@ export class LyricsUtils {
    * @returns void
    */
   static enableLyricsTab(): void {
-    const tabSelector = document.getElementsByClassName(FayeLyricsConstants.TAB_HEADER_CLASS)[1] as HTMLElement;
+    const tabSelector = document.getElementsByClassName(
+      FayeLyricsConstants.TAB_HEADER_CLASS
+    )[1] as HTMLElement;
 
     if (!tabSelector) {
       setTimeout(() => {
@@ -18,7 +20,7 @@ export class LyricsUtils {
     tabSelector.removeAttribute("disabled");
     tabSelector.setAttribute("aria-disabled", "false");
 
-    let observer = new MutationObserver((mutations: MutationRecord[]) => {
+    const observer = new MutationObserver((mutations: MutationRecord[]) => {
       mutations.forEach((mutation: MutationRecord) => {
         if (mutation.attributeName === "disabled") {
           tabSelector.removeAttribute("disabled");

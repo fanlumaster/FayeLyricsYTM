@@ -19,18 +19,21 @@ const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
           const duration = player.getDuration();
           const { isPlaying } = player.getPlayerStateObject();
           document.dispatchEvent(
-            new CustomEvent<LyricsPlayerEventDetail>(FAYE_LYRICS_SEND_PLAYER_MSG, {
-              detail: {
-                currentTime: currentTime,
-                videoId: video_id,
-                song: title,
-                artist: author,
-                duration: duration,
-                audioTrackData: audioTrackData,
-                browserTime: Date.now(),
-                playing: isPlaying,
-              },
-            })
+            new CustomEvent<LyricsPlayerEventDetail>(
+              FAYE_LYRICS_SEND_PLAYER_MSG,
+              {
+                detail: {
+                  currentTime: currentTime,
+                  videoId: video_id,
+                  song: title,
+                  artist: author,
+                  duration: duration,
+                  audioTrackData: audioTrackData,
+                  browserTime: Date.now(),
+                  playing: isPlaying,
+                },
+              }
+            )
           );
         } catch (e) {
           console.log(e);
