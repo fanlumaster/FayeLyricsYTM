@@ -112,8 +112,8 @@ export class FayeLyrics {
           const time = parseFloat(data_time);
           if (time < currentTime) {
             activeLine = line;
-            line.classList.remove("fayelyrics-active");
           }
+          line.classList.remove("fayelyrics-active");
         }
       }
     }
