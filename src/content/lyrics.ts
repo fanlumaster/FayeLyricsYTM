@@ -45,6 +45,7 @@ export class FayeLyrics {
     }
     const container = document.createElement("div");
     container.id = "fayelyrics-container";
+    container.setAttribute("vedioId", "blank");
     tabRenderer?.appendChild(container);
     return container;
   }
@@ -95,9 +96,26 @@ export class FayeLyrics {
   }
 
   static inflateLyrics() {
-    const container = this.createLyricContainer();
-    const content = this.parseLyrics(hardcodeLyrics);
-    container.innerHTML = content;
+    this.createLyricContainer();
+    // const content = this.parseLyrics(hardcodeLyrics["B5BzR7IWXik"]);
+    // container.innerHTML = content;
+  }
+
+  static updateLyrics(videoId: string) {
+    const lyricsContainer = document.getElementById("fayelyrics-container");
+    if (lyricsContainer?.getAttribute("videoId") != videoId) {
+      lyricsContainer?.setAttribute("videoId", videoId);
+      if (videoId in hardcodeLyrics) {
+        const content = this.parseLyrics(hardcodeLyrics[videoId as keyof typeof hardcodeLyrics]);
+        if (lyricsContainer) {
+          lyricsContainer.innerHTML = content;
+        }
+      } else {
+        if (lyricsContainer) {
+          lyricsContainer.innerHTML = `<div>No lyrics.</div>`;
+        }
+      }
+    }
   }
 
   static updateLyricsState(currentTime: number, isPlaying: boolean) {
@@ -132,6 +150,8 @@ export class FayeLyrics {
       let detail = event.detail;
       const currentTime = detail.currentTime;
       const isPlaying = detail.playing;
+      const videoId = detail.videoId;
+      this.updateLyrics(videoId);
       this.updateLyricsState(currentTime, isPlaying);
     }) as EventListener);
   }
