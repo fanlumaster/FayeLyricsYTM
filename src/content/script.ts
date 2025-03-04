@@ -12,7 +12,6 @@ const { FAYE_LYRICS_SEND_PLAYER_MSG } = FayeLyricsConstants;
       const player = document.getElementById("movie_player") as any;
       if (player) {
         try {
-          console.log(player);
           const currentTime = player.getCurrentTime();
           const { video_id, title, author } = player.getVideoData();
           const audioTrackData = player.getAudioTrack();

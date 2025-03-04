@@ -49,3 +49,49 @@
   font-weight: 700;
   color: aqua;
 }
+
+/* #player-page {
+  background: #8cbce7dc;
+}
+
+
+#nav-bar-background {
+  background: #8cbce7dc;
+}
+
+ytmusic-app-layout>[slot=mini-guide],
+#nav-bar-background.ytmusic-app-layout {
+  background: #8cbce7dc !important;
+
+}
+
+#nav-bar-divider {
+  display: none !important;
+} */
+
+ytmusic-app-layout[is-bauhaus-sidenav-enabled] #nav-bar-background.ytmusic-app-layout {
+  border-bottom: 0 !important;
+}
+
+ytmusic-app-layout[is-bauhaus-sidenav-enabled] #mini-guide-background.ytmusic-app-layout {
+  border-right: 0 !important;
+}
+
+ytmusic-player-page,
+ytmusic-guide-renderer,
+ytmusic-player-bar,
+#nav-bar-background.ytmusic-app-layout {
+  background: rgba(123, 81, 81, 0.215) !important;
+}
+
+#player-bar-background {
+  background: rgba(102, 51, 153, 0) !important;
+}
+
+ytmusic-guide-renderer {
+  height: calc(100vh - var(--ytmusic-nav-bar-height) - var(--ytmusic-player-bar-height)) !important;
+}
+
+ytmusic-app-layout>[slot=player-bar] {
+  width: 100vw !important;
+}

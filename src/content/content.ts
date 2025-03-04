@@ -1,5 +1,4 @@
 import { LyricsUtils } from "./utils.ts";
-import { LyricsPlayerEventDetail } from "./data-types.ts";
 import { FayeLyrics } from "./lyrics.ts";
 
 function injectGetSongInfo() {
@@ -23,13 +22,3 @@ if (document.readyState !== "loading") {
 } else {
   document.addEventListener("DOMContentLoaded", main);
 }
-
-document.addEventListener("faye-lyrics-send-player-msg", ((
-  event: CustomEvent<LyricsPlayerEventDetail>
-) => {
-  const customEvent = event as CustomEvent<any>;
-  const data: any = customEvent.detail;
-  console.log("Current time:", data.currentTime);
-  console.log("Song:", data.song);
-  console.log("Playing:", data.playing);
-}) as EventListener);
