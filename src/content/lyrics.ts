@@ -100,7 +100,7 @@ export class FayeLyrics {
     container.innerHTML = content;
   }
 
-  static updateLyricsState(currentTime: number) {
+  static updateLyricsState(currentTime: number, isPlaying: boolean) {
     const lyricsContainer = document.getElementById("fayelyrics-content");
     const lyricLines = lyricsContainer?.querySelectorAll("div[data-time]");
 
@@ -119,8 +119,11 @@ export class FayeLyrics {
     }
     if (activeLine) {
       activeLine.classList.add('fayelyrics-active');
-      let tabRenderer = document.getElementById("tab-renderer");
-      CommonUtils.scrollDivToCenter(activeLine as HTMLDivElement, tabRenderer as HTMLDivElement);
+      const tabRenderer = document.getElementById("tab-renderer");
+      const isLyricsPage = tabRenderer?.getAttribute("page-type");
+      if (isPlaying && isLyricsPage === "MUSIC_PAGE_TYPE_TRACK_LYRICS") {
+        CommonUtils.scrollDivToCenter(activeLine as HTMLDivElement, tabRenderer as HTMLDivElement);
+      }
     }
   }
 
@@ -128,7 +131,8 @@ export class FayeLyrics {
     document.addEventListener(FAYE_LYRICS_SEND_PLAYER_MSG, ((event: CustomEvent<LyricsPlayerEventDetail>) => {
       let detail = event.detail;
       const currentTime = detail.currentTime;
-      this.updateLyricsState(currentTime);
+      const isPlaying = detail.playing;
+      this.updateLyricsState(currentTime, isPlaying);
     }) as EventListener);
   }
 }

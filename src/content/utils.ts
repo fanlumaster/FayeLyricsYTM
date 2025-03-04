@@ -2,7 +2,7 @@ import { FayeLyricsConstants } from "./constants.ts";
 
 export class LyricsUtils {
   /**
-   * Enable Lyrics tab forcelly
+   * Enable Lyrics tab forcely
    * @returns void
    */
   static enableLyricsTab(): void {
